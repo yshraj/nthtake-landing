@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { EMAIL_RE } from "@/lib/waitlist";
 
 export const runtime = "nodejs";
 
@@ -18,8 +19,6 @@ const MAX_NAME = 80;
 const MAX_EMAIL = 120;
 const MAX_CRAFT = 40;
 const MAX_SOURCE = 40;
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const hits = new Map<string, { count: number; resetAt: number }>();
 const RATE_WINDOW_MS = 60_000;

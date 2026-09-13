@@ -1,3 +1,5 @@
+export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export type WaitlistPayload = {
   name?: string;
   email: string;
@@ -9,6 +11,19 @@ export type WaitlistPayload = {
 export type WaitlistResult =
   | { ok: true }
   | { ok: false; error: string; field?: string; status: number };
+
+export function describeWaitlistError(error?: string): string {
+  switch (error) {
+    case "valid email required":
+      return "Enter a work email.";
+    case "too many requests, try again shortly":
+      return "Too many tries. Wait a minute.";
+    case "network error":
+      return "Couldn't send. Check the connection.";
+    default:
+      return "Couldn't send. Try again.";
+  }
+}
 
 export async function joinWaitlist(
   payload: WaitlistPayload,

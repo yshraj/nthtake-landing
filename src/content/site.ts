@@ -12,8 +12,12 @@ export const site = {
     line2Before: "Clearer ",
     rotating: ["feedback.", "takes.", "rounds.", "pay."] as const,
     body: "Send a watermarked preview. The client marks the take. When they pay, the master unlocks.",
-    waitlistLabel: "First name",
+    waitlistLabel: "Work email",
+    waitlistPlaceholder: "you@studio.com",
     waitlistCta: "Get early access",
+    waitlistSending: "Sending",
+    waitlistSuccess: "Spot reserved for",
+    waitlistError: "Enter a work email.",
     proof: ["3,200 freelancers", "Minor monthly fees", "No subscription"],
   },
   tools: [
@@ -138,6 +142,7 @@ export const site = {
     title: "Join the waitlist.",
     body: "No subscription. Minor monthly fees.",
     emailLabel: "Work email",
+    emailPlaceholder: "you@studio.com",
     craftLabel: "Craft",
     crafts: [
       { value: "video", label: "Video" },
@@ -145,6 +150,8 @@ export const site = {
       { value: "other", label: "Other" },
     ],
     cta: "Request a spot",
+    sending: "Requesting",
+    success: "Spot reserved for",
   },
   voices: {
     kicker: "The handoff",

@@ -14,6 +14,7 @@ export function ShimmerButton({ children, className, ...props }: ShimmerButtonPr
         "relative overflow-hidden px-6 py-3 rounded-none font-medium",
         "bg-primary text-primary-foreground",
         "hover:shadow-lg transition-shadow duration-300",
+        "disabled:pointer-events-none disabled:opacity-50",
         "group",
         className
       )}

@@ -6,7 +6,17 @@ import Container from "./container";
 import Heading from "./heading";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { site } from "@/content/site";
-import { joinWaitlist } from "@/lib/waitlist";
+import {
+  describeWaitlistError,
+  EMAIL_RE,
+  joinWaitlist,
+} from "@/lib/waitlist";
+import {
+  WaitlistInput,
+  WaitlistReceipt,
+  WaitlistSelect,
+  WaitlistStatus,
+} from "./waitlist-field";
 
 export default function Closer() {
   const [email, setEmail] = useState("");
@@ -19,6 +29,13 @@ export default function Closer() {
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (sending) return;
+
+    const trimmed = email.trim();
+    if (!trimmed || !EMAIL_RE.test(trimmed)) {
+      setError(site.hero.waitlistError);
+      return;
+    }
+
     setSending(true);
     setError("");
 
@@ -29,7 +46,7 @@ export default function Closer() {
 
     const result = await joinWaitlist({
       name,
-      email: email.trim(),
+      email: trimmed,
       craft,
       source: "closer",
       company,
@@ -37,11 +54,11 @@ export default function Closer() {
 
     if (!result.ok) {
       setSending(false);
-      setError(result.error);
+      setError(describeWaitlistError(result.error));
       return;
     }
 
-    sessionStorage.setItem("nthtake-email", email.trim());
+    sessionStorage.setItem("nthtake-email", trimmed);
     sessionStorage.setItem("nthtake-craft", craft);
     setSending(false);
     setDone(true);
@@ -92,11 +109,19 @@ export default function Closer() {
             {site.closer.body}
           </motion.p>
           {done ? (
-            <motion.p variants={itemVariants} className="mt-10 text-white">
-              We&apos;ll ping you when a studio slot opens.
-            </motion.p>
+            <motion.div variants={itemVariants} className="mt-10">
+              <WaitlistReceipt
+                email={email.trim()}
+                label={site.closer.success}
+              />
+            </motion.div>
           ) : (
-            <motion.form variants={itemVariants} onSubmit={onSubmit} className="mt-8 space-y-4 text-left">
+            <motion.form
+              variants={itemVariants}
+              onSubmit={onSubmit}
+              noValidate
+              className="mt-8 space-y-4 text-left"
+            >
               <div className="sr-only" aria-hidden>
                 <label htmlFor="waitlist-company">Leave this field blank</label>
                 <input
@@ -109,49 +134,61 @@ export default function Closer() {
                   onChange={(e) => setCompany(e.target.value)}
                 />
               </div>
-              <label className="block text-[10px] tracking-widest text-white/40 uppercase">
-                {site.closer.emailLabel}
-                <input
+              <div>
+                <label
+                  htmlFor="waitlist-email"
+                  className="block text-[11px] tracking-[0.2em] text-white/45 uppercase"
+                >
+                  {site.closer.emailLabel}
+                </label>
+                <WaitlistInput
+                  id="waitlist-email"
                   required
                   type="email"
                   autoComplete="email"
+                  inputMode="email"
+                  placeholder={site.closer.emailPlaceholder}
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (error) setError("");
+                  }}
                   disabled={sending}
-                  className="mt-2 w-full border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none placeholder:text-white/40 focus:border-primary focus-visible:ring-1 focus-visible:ring-primary disabled:opacity-50"
+                  invalid={Boolean(error)}
+                  aria-invalid={error ? true : undefined}
+                  aria-describedby={error ? "waitlist-email-status" : undefined}
+                  className="mt-2"
                 />
-              </label>
-              <label className="block text-[10px] tracking-widest text-white/40 uppercase">
+              </div>
+              <label
+                htmlFor="waitlist-craft"
+                className="block text-[11px] tracking-[0.2em] text-white/45 uppercase"
+              >
                 {site.closer.craftLabel}
-                <span className="relative mt-2 block">
-                  <select
-                    value={craft}
-                    onChange={(e) => setCraft(e.target.value)}
-                    disabled={sending}
-                    className="w-full appearance-none border border-white/10 bg-black/40 px-4 py-3 pr-10 text-sm text-white outline-none focus:border-primary focus-visible:ring-1 focus-visible:ring-primary disabled:opacity-50"
-                  >
-                    {site.closer.crafts.map((c) => (
-                      <option key={c.value} value={c.value} className="bg-neutral-950">
-                        {c.label}
-                      </option>
-                    ))}
-                  </select>
-                  <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-white/40">
-                    ▾
-                  </span>
-                </span>
+                <WaitlistSelect
+                  id="waitlist-craft"
+                  value={craft}
+                  onChange={(e) => setCraft(e.target.value)}
+                  disabled={sending}
+                >
+                  {site.closer.crafts.map((c) => (
+                    <option key={c.value} value={c.value} className="bg-neutral-950">
+                      {c.label}
+                    </option>
+                  ))}
+                </WaitlistSelect>
               </label>
               {error ? (
-                <p className="text-sm text-red-400" role="alert">
-                  {error}
-                </p>
+                <div id="waitlist-email-status">
+                  <WaitlistStatus error={error} />
+                </div>
               ) : null}
               <ShimmerButton
                 type="submit"
                 disabled={sending}
-                className="w-full rounded-none px-8 py-4 text-xs font-bold tracking-widest uppercase"
+                className="w-full px-8 py-4 text-xs font-bold tracking-widest uppercase"
               >
-                {sending ? "Sending" : site.closer.cta}
+                {sending ? site.closer.sending : site.closer.cta}
               </ShimmerButton>
             </motion.form>
           )}

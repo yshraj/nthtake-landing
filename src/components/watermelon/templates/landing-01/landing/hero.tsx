@@ -11,7 +11,12 @@ import { site } from "@/content/site";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import TakePlate, { TAKE_FRAMES } from "./take-plate";
 import { cn } from "@/lib/utils";
-import { joinWaitlist } from "@/lib/waitlist";
+import {
+  describeWaitlistError,
+  EMAIL_RE,
+  joinWaitlist,
+} from "@/lib/waitlist";
+import { WaitlistInput, WaitlistReceipt, WaitlistStatus } from "./waitlist-field";
 
 const ROTATING_WORDS = site.hero.rotating;
 
@@ -65,9 +70,42 @@ const HERO_PLATES = [
 
 export default function Hero() {
   const [wordIndex, setWordIndex] = useState(0);
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
   const [joined, setJoined] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
   const reduce = useReducedMotion();
+
+  async function onWaitlistSubmit(e: FormEvent) {
+    e.preventDefault();
+    if (sending) return;
+
+    const trimmed = email.trim();
+    if (!trimmed || !EMAIL_RE.test(trimmed)) {
+      setError(site.hero.waitlistError);
+      return;
+    }
+
+    setSending(true);
+    setError("");
+
+    const result = await joinWaitlist({
+      email: trimmed,
+      source: "hero",
+      company,
+    });
+
+    if (!result.ok) {
+      setSending(false);
+      setError(describeWaitlistError(result.error));
+      return;
+    }
+
+    sessionStorage.setItem("nthtake-email", trimmed);
+    setSending(false);
+    setJoined(true);
+  }
 
   useEffect(() => {
     if (reduce) return;
@@ -212,54 +250,73 @@ export default function Hero() {
 
             <motion.div
               variants={itemVariants}
-              className="flex flex-col gap-4 sm:flex-row sm:items-stretch"
+              className="flex w-full max-w-xl flex-col items-stretch gap-4"
             >
               {joined ? (
-                <p className="text-sm text-white/70">
-                  You&apos;re on the list, {name}.
-                </p>
+                <WaitlistReceipt
+                  email={email.trim()}
+                  label={site.hero.waitlistSuccess}
+                />
               ) : (
                 <form
-                  className="flex flex-col gap-3 sm:flex-row sm:items-stretch"
-                  onSubmit={(e: FormEvent) => {
-                    e.preventDefault();
-                    if (!name.trim()) return;
-                    sessionStorage.setItem("nthtake-name", name.trim());
-                    const savedEmail = sessionStorage.getItem("nthtake-email");
-                    if (savedEmail) {
-                      void joinWaitlist({
-                        name: name.trim(),
-                        email: savedEmail,
-                        source: "hero",
-                      });
-                    }
-                    setJoined(true);
-                  }}
+                  className="flex flex-col gap-3"
+                  onSubmit={onWaitlistSubmit}
+                  noValidate
                 >
-                  <label className="sr-only" htmlFor="hero-first-name">
+                  <div className="sr-only" aria-hidden>
+                    <label htmlFor="hero-company">Leave this field blank</label>
+                    <input
+                      id="hero-company"
+                      name="company"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={company}
+                      onChange={(e) => setCompany(e.target.value)}
+                    />
+                  </div>
+                  <label className="sr-only" htmlFor="hero-email">
                     {site.hero.waitlistLabel}
                   </label>
-                  <input
-                    id="hero-first-name"
-                    required
-                    name="firstName"
-                    autoComplete="given-name"
-                    placeholder={site.hero.waitlistLabel}
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none placeholder:text-white/40 focus:border-primary focus-visible:ring-1 focus-visible:ring-primary sm:w-56"
-                  />
-                  <ShimmerButton
-                    type="submit"
-                    className="rounded-none px-8 py-3 text-sm font-bold tracking-widest uppercase"
-                  >
-                    {site.hero.waitlistCta}
-                  </ShimmerButton>
+                  <div className="flex flex-col sm:flex-row sm:items-stretch">
+                    <WaitlistInput
+                      id="hero-email"
+                      type="email"
+                      name="email"
+                      autoComplete="email"
+                      inputMode="email"
+                      placeholder={site.hero.waitlistPlaceholder}
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        if (error) setError("");
+                      }}
+                      disabled={sending}
+                      invalid={Boolean(error)}
+                      aria-invalid={error ? true : undefined}
+                      aria-describedby={error ? "hero-email-status" : undefined}
+                      className="max-sm:border-b-0 sm:border-r-0"
+                    />
+                    <ShimmerButton
+                      type="submit"
+                      disabled={sending}
+                      className="w-full px-8 py-3 text-xs font-bold tracking-widest uppercase sm:w-auto sm:shrink-0"
+                    >
+                      {sending
+                        ? site.hero.waitlistSending
+                        : site.hero.waitlistCta}
+                    </ShimmerButton>
+                  </div>
+                  {error ? (
+                    <div id="hero-email-status">
+                      <WaitlistStatus error={error} />
+                    </div>
+                  ) : null}
                 </form>
               )}
               <Link
                 href="#how"
-                className="text-foreground inline-flex items-center justify-center border border-white/10 px-8 py-3 text-sm font-bold transition-all hover:bg-white/5 focus-visible:ring-1 focus-visible:ring-primary active:scale-[0.97]"
+                className="text-foreground inline-flex items-center justify-center self-center border border-white/10 px-8 py-3 text-sm font-bold transition-all hover:bg-white/5 focus-visible:ring-1 focus-visible:ring-primary active:scale-[0.97]"
               >
                 See how
                 <ArrowUpRight01Icon className="ml-2 h-4 w-4" />

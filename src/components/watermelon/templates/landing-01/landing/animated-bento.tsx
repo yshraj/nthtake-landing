@@ -165,19 +165,22 @@ export default function AnimatedBento() {
             title="[ WAITLIST ]"
             variants={itemVariants}
             className="md:col-span-1"
-            innerClassName="scale-[0.85] mt-4"
+            innerClassName="mt-4 w-full px-2"
           >
             <MorphingButton
               buttonText={site.hero.waitlistCta}
-              placeholder={site.closer.emailLabel}
+              placeholder={site.hero.waitlistPlaceholder}
               onSubmit={async (email) => {
-                sessionStorage.setItem("nthtake-email", email);
                 const name = sessionStorage.getItem("nthtake-name") ?? "";
-                await joinWaitlist({
+                const result = await joinWaitlist({
                   name,
                   email,
                   source: "studio-tools",
                 });
+                if (result.ok) {
+                  sessionStorage.setItem("nthtake-email", email);
+                }
+                return result;
               }}
             />
           </FeatureCard>

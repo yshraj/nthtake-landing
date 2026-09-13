@@ -1,39 +1,52 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Bell } from 'lucide-react';
+import { FormEvent, useEffect, useRef, useState } from "react";
+import {
+  describeWaitlistError,
+  EMAIL_RE,
+  joinWaitlist,
+  type WaitlistResult,
+} from "@/lib/waitlist";
+import { site } from "@/content/site";
+import { WaitlistInput, WaitlistReceipt, WaitlistStatus } from "@/components/watermelon/templates/landing-01/landing/waitlist-field";
+import { cn } from "@/lib/utils";
 
 interface MorphingButtonProps {
   buttonText?: string;
   placeholder?: string;
-  onSubmit?: (email: string) => void | Promise<void>;
+  onSubmit?: (email: string) => void | Promise<WaitlistResult | void>;
   className?: string;
 }
 
 export const MorphingButton: React.FC<MorphingButtonProps> = ({
-  buttonText = 'Notify Me',
-  placeholder = 'Email',
+  buttonText = site.hero.waitlistCta,
+  placeholder = site.hero.waitlistPlaceholder,
   onSubmit,
-  className = '',
+  className = "",
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [email, setEmail] = useState('');
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [sending, setSending] = useState(false);
+  const [done, setDone] = useState(false);
+  const containerRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node)
+        sending ||
+        !containerRef.current ||
+        containerRef.current.contains(event.target as Node)
       ) {
-        setIsExpanded(false);
+        return;
       }
+      setIsExpanded(false);
+      setError("");
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [sending]);
 
   useEffect(() => {
     if (isExpanded && inputRef.current) {
@@ -41,104 +54,108 @@ export const MorphingButton: React.FC<MorphingButtonProps> = ({
     }
   }, [isExpanded]);
 
-  const handleToggle = (e: React.MouseEvent) => {
-    if (!isExpanded) {
-      e.stopPropagation();
+  async function submitEmail() {
+    if (sending) return;
+    const trimmed = email.trim();
+    if (!trimmed || !EMAIL_RE.test(trimmed)) {
+      setError(site.hero.waitlistError);
       setIsExpanded(true);
-    } else if (email) {
-      void Promise.resolve(onSubmit?.(email)).then(() => {
-        setIsExpanded(false);
-        setEmail('');
-      });
+      return;
     }
-  };
 
-  const springConfig = {
-    type: 'spring',
-    stiffness: 240,
-    damping: 18,
-    mass: 1.1,
-  } as const;
+    setSending(true);
+    setError("");
+
+    const result = onSubmit
+      ? await onSubmit(trimmed)
+      : await joinWaitlist({ email: trimmed, source: "studio-tools" });
+
+    if (result && "ok" in result && !result.ok) {
+      setSending(false);
+      setError(describeWaitlistError(result.error));
+      setIsExpanded(true);
+      return;
+    }
+
+    setEmail(trimmed);
+    setSending(false);
+    setDone(true);
+    setIsExpanded(false);
+  }
+
+  function onFormSubmit(e: FormEvent) {
+    e.preventDefault();
+    void submitEmail();
+  }
+
+  if (done) {
+    return (
+      <div className={cn("flex w-full justify-center px-2", className)}>
+        <WaitlistReceipt email={email} label={site.hero.waitlistSuccess} />
+      </div>
+    );
+  }
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-12 p-8 transition-colors duration-500">
-      <div
-        className={`flex items-center justify-center will-change-transform ${className}`}
+    <div className={cn("flex w-full flex-col items-center gap-3 px-2", className)}>
+      <form
+        ref={containerRef}
+        onSubmit={onFormSubmit}
+        noValidate
+        className={cn("w-full", isExpanded ? "max-w-sm" : "w-auto")}
       >
-        <motion.div
-          ref={containerRef}
-          layout
-          transition={springConfig}
-          style={{ borderRadius: 0 }}
-          className={`relative flex items-center overflow-hidden border border-white/15 transition-colors duration-300 ${
+        <div
+          className={cn(
+            "overflow-hidden",
+            isExpanded ? "flex w-full flex-col" : "flex w-auto",
             isExpanded
-              ? "w-84 bg-black/60 p-1"
-              : "w-auto bg-black/40 p-0"
-          }`}
+              ? error
+                ? "border border-white/35 bg-black/60"
+                : "border border-white/15 bg-black/60"
+              : "bg-transparent",
+          )}
         >
-          <AnimatePresence mode="popLayout">
-            {isExpanded && (
-              <motion.div
-                key="input-container"
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ ...springConfig }}
-                className="flex flex-1 items-center px-4"
-              >
-                <motion.input
+          {isExpanded ? (
+            <div className="min-w-0 w-full">
+                <label className="sr-only" htmlFor="studio-waitlist-email">
+                  {site.hero.waitlistLabel}
+                </label>
+                <WaitlistInput
+                  id="studio-waitlist-email"
                   ref={inputRef}
-                  layout
                   type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  autoComplete="email"
+                  inputMode="email"
                   placeholder={placeholder}
-                  className="w-full bg-transparent text-xl font-semibold text-[#18181B] placeholder-[#A1A1AA] transition-colors outline-none dark:text-[#fefefe] dark:placeholder-[#B2B2B2]"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && email) {
-                      void Promise.resolve(onSubmit?.(email)).then(() => {
-                        setIsExpanded(false);
-                        setEmail('');
-                      });
-                    }
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (error) setError("");
                   }}
+                  disabled={sending}
+                  invalid={Boolean(error)}
+                  className="border-0 bg-transparent focus-within:ring-0"
                 />
-              </motion.div>
+            </div>
+          ) : null}
+
+          <button
+            type={isExpanded ? "submit" : "button"}
+            disabled={sending}
+            onClick={() => {
+              if (!isExpanded) setIsExpanded(true);
+            }}
+            className={cn(
+              "bg-primary text-primary-foreground shrink-0 px-5 py-3 text-xs font-bold tracking-widest uppercase",
+              "hover:bg-primary/90 focus-visible:ring-1 focus-visible:ring-primary disabled:opacity-50",
+              isExpanded && "w-full",
             )}
-          </AnimatePresence>
-
-          <motion.button
-            layout
-            onClick={handleToggle}
-            transition={springConfig}
-            className={`relative flex items-center justify-center gap-3 font-bold whitespace-nowrap transition-colors duration-300 ${
-              isExpanded
-                ? "bg-primary text-primary-foreground px-5 py-3 hover:bg-primary/90"
-                : "bg-primary text-primary-foreground px-6 py-4 hover:bg-primary/90"
-            }`}
           >
-            <AnimatePresence mode="popLayout" initial={false}>
-              {!isExpanded && (
-                <motion.span
-                  key="bell-icon"
-                  layout
-                  className="origin-right"
-                  initial={{ opacity: 0, scale: 0, filter: 'blur(4px)' }}
-                  animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                  exit={{ opacity: 0, scale: 0, filter: 'blur(4px)' }}
-                  transition={springConfig}
-                >
-                  <Bell className="h-5 w-5 text-primary-foreground" />
-                </motion.span>
-              )}
-            </AnimatePresence>
-
-            <motion.span layout="position" className="text-xl tracking-tight">
-              {buttonText}
-            </motion.span>
-          </motion.button>
-        </motion.div>
-      </div>
+            {sending ? site.hero.waitlistSending : buttonText}
+          </button>
+        </div>
+      </form>
+      <WaitlistStatus error={error} />
     </div>
   );
 };
