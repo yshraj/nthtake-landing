@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 512" role="img" aria-label="Nthtake">
+  <g id="background">
+    <rect x="0" y="0" width="1024" height="512" fill="#141414"/>
+  </g>
+  <g id="icon">
+    <path fill="#C8F04A" d="M154 190V114h108v76h-32v-44H186v44z"/>
+    <path fill="#C8F04A" fill-rule="evenodd" d="M134 182h148v148H134zM174 196l94 60-94 60z"/>
+  </g>
+  <g id="wordmark">
+    <text x="334" y="302" fill="#F2F2F2" font-family="Helvetica, Arial, sans-serif" font-size="128" font-weight="800" letter-spacing="-7">NTHTAKE</text>
+  </g>
+</svg>

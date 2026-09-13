@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Nthtake lock">
+  <rect width="512" height="512" fill="#141414"/>
+  <g id="icon">
+    <rect x="112" y="251.2" width="288" height="201.6" fill="#C8F04A"/>
+    <rect x="220" y="298" width="72" height="112" fill="#141414"/>
+    <path
+      fill="#C8F04A"
+      d="M140.3 260.8 L99.3 107.7 L325.3 47.2 L366.3 200.2 L295.0 219.3 L272.2 134.1 L188.7 156.5 L211.5 241.6 Z"
+    />
+  </g>
+</svg>
