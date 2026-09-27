@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Nthtake - One studio link",
   description:
-    "Send a watermarked preview. The client marks the take. When they pay, the master unlocks. No subscription. Minor monthly fees.",
+    "Send a watermarked preview. The client marks the take. When they pay, the master unlocks.",
   metadataBase: new URL("https://nthtake.studio"),
   openGraph: {
     title: "Nthtake - One studio link",

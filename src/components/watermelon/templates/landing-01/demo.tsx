@@ -9,6 +9,7 @@ import AnimatedBento from './landing/animated-bento';
 import ComponentsBento from './landing/component-bento';
 import TemplateBento from './landing/template-bento';
 import Testimonial from './landing/testimonial';
+import Pricing from './landing/pricing';
 import Questions from './landing/questions';
 import Closer from './landing/closer';
 import Footer from './landing/footer';
@@ -29,6 +30,7 @@ export default function Landing01Demo() {
         <ComponentsBento />
         <TemplateBento />
         <Testimonial />
+        <Pricing />
         <Questions />
         <Closer />
         <Footer />
