@@ -9,8 +9,8 @@ import { site } from "@/content/site";
 import TakePlate, { TAKE_FRAMES } from "./take-plate";
 
 const TAKE_TABS = [
-  { id: "02", label: "Take 02" },
-  { id: "03", label: "Take 03" },
+  { id: "02", label: site.takes.before },
+  { id: "03", label: site.takes.after },
 ];
 
 function TemplateCard({ variants, children }: { variants: Variants; children: React.ReactNode }) {
@@ -90,7 +90,7 @@ export default function TemplateBento() {
   };
 
   return (
-    <section id="takes" className="py-24 md:py-32 relative overflow-hidden bg-[#101010] font-mono scroll-mt-20">
+    <section id="feedback" className="py-24 md:py-32 relative overflow-hidden bg-[#101010] font-mono scroll-mt-20">
       <div className="hidden lg:block absolute top-0 left-0 w-full border-t border-white/5" />
 
       <Container className="relative z-10 mx-auto">

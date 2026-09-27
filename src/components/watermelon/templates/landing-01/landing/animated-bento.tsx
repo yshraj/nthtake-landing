@@ -143,15 +143,15 @@ export default function AnimatedBento() {
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[380px]"
+          className="w-full max-w-4xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
         >
           <FeatureCard
-            title="[ STUDIO TOOLS ]"
+            title="[ AI ASSISTANT ]"
             variants={itemVariants}
-            className="md:col-span-1 lg:col-span-2"
+            className="w-full h-[380px]"
             innerClassName="scale-[0.85] md:scale-[0.92] mt-4"
           >
             <SelectAIAgent
@@ -159,71 +159,6 @@ export default function AnimatedBento() {
               placeholder="Send take 03"
               modes={["Video", "Design"]}
             />
-          </FeatureCard>
-
-          <FeatureCard
-            title="[ WAITLIST ]"
-            variants={itemVariants}
-            className="md:col-span-1"
-            innerClassName="mt-4 w-full px-2"
-          >
-            <MorphingButton
-              buttonText={site.hero.waitlistCta}
-              placeholder={site.hero.waitlistPlaceholder}
-              onSubmit={async (email) => {
-                const name = sessionStorage.getItem("nthtake-name") ?? "";
-                const result = await joinWaitlist({
-                  name,
-                  email,
-                  source: "studio-tools",
-                });
-                if (result.ok) {
-                  sessionStorage.setItem("nthtake-email", email);
-                }
-                return result;
-              }}
-            />
-          </FeatureCard>
-
-          <FeatureCard
-            title="[ SCRUB ]"
-            variants={itemVariants}
-            className="md:col-span-1"
-            innerClassName="mt-8 flex flex-col items-center gap-3"
-          >
-            <KnobSlider
-              value={knobValue}
-              onChange={setKnobValue}
-              min={0}
-              max={99}
-              size={200}
-            />
-            <p className="text-primary font-mono text-xs tracking-[0.28em] tabular-nums">
-              {timecode}
-            </p>
-          </FeatureCard>
-
-          <motion.div key="card-100" variants={itemVariants} className="hidden lg:block lg:col-span-1 h-full w-full relative border border-primary/20 bg-primary/5 backdrop-blur-sm group">
-            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary"></div>
-            <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary"></div>
-            <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary"></div>
-            <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary"></div>
-
-            <div className="w-full h-full flex flex-col items-center justify-center p-6 relative overflow-hidden">
-               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,color-mix(in_oklch,var(--primary)_18%,transparent)_1px,transparent_1px)] bg-size-[12px_12px] opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
-               <div className="relative z-10 flex flex-col items-center text-center px-6">
-                 <p className="text-foreground font-sans text-2xl font-bold tracking-tight lg:text-3xl">Minor monthly fees</p>
-               </div>
-            </div>
-          </motion.div>
-
-          <FeatureCard
-            title="[ TAKES ]"
-            variants={itemVariants}
-            className="md:col-span-1 lg:col-span-1"
-            innerClassName="mt-6"
-          >
-            <CarouselSlider slides={slides} />
           </FeatureCard>
         </motion.div>
       </Container>

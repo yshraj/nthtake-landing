@@ -85,7 +85,7 @@ export default function Navbar() {
             href="#access"
             className="bg-primary text-primary-foreground flex h-10 items-center px-6 font-mono text-xs font-bold tracking-widest uppercase transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-[0.96]"
           >
-            Get early access
+            {site.hero.waitlistCta}
           </Link>
         </nav>
 
@@ -129,7 +129,7 @@ export default function Navbar() {
               onClick={() => setMobileMenuOpen(false)}
               className="bg-primary text-primary-foreground mt-2 w-full px-4 py-4 text-center font-mono text-xs font-bold tracking-widest uppercase"
             >
-              Get early access
+              {site.hero.waitlistCta}
             </Link>
           </div>
         </>
