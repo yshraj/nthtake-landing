@@ -26,9 +26,9 @@ export default function Landing01Demo() {
         <Stats />
         <HoldToUnlock />
         <Features />
-        <AnimatedBento />
         <ComponentsBento />
         <TemplateBento />
+        <AnimatedBento />
         <Testimonial />
         <Pricing />
         <Questions />

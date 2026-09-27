@@ -43,8 +43,8 @@ export const site = {
   },
   how: {
     kicker: "How it works",
-    titleBefore: "Preview. Approve. ",
-    titleAccent: "Pay.",
+    titleBefore: "Preview. Feedback. ",
+    titleAccent: "Get paid.",
     cards: [
       {
         title: "1. Send the preview",
@@ -76,9 +76,9 @@ export const site = {
   },
   review: {
     kicker: "The feedback problem",
-    titleBefore: "One project. Every ",
-    titleAccent: "version.",
-    body: "Stop tracking feedback across WhatsApp, Email, and Drive. Every version, and every comment, stays in one place until final approval.",
+    titleBefore: "Show them exactly what you ",
+    titleAccent: "mean.",
+    body: "Click the exact part you want changed, leave a comment, and keep every request attached to the right version. No more guessing what “that part” means.",
   },
   unlock: {
     kicker: "The gate",
