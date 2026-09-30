@@ -114,7 +114,7 @@ export async function POST(req: Request) {
       to: TO_EMAIL,
       cc: CC_EMAIL,
       replyTo: email,
-      subject: `[Nthtake] waitlist from ${who}`,
+      subject: `[EditTrack] waitlist from ${who}`,
       text: [
         name ? `Name: ${name}` : null,
         `Email: ${email}`,
