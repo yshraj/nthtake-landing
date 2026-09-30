@@ -8,8 +8,8 @@ Four-phase revamp of the EditTrack pre-launch landing page. Phase 1 recovers los
 
 - [x] **Phase 1: Content Recovery + Light Theme Completion** - Restore lost product copy from git history; fix all remaining dark-hardcoded colors
 - [x] **Phase 2: Playwright Review + Positioning Pass** - Visual audit at 1440px and 390px; update copy to clearly target creative freelancers
-- [ ] **Phase 3: Interactive Mockups** - Make product UI mockups feel real and interactive
-- [ ] **Phase 4: Build + QA** - Clean npm build, TypeScript, and lint
+- [x] **Phase 3: Interactive Mockups** - Make product UI mockups feel real and interactive
+- [x] **Phase 4: Build + QA** - Clean npm build, TypeScript, and lint
 
 ## Phase Details
 
