@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Navbar } from "@/components/navbar";
 import { ProductFlow } from "@/components/product-flow";
+import { AIChatSection } from "@/components/ai-chat-section";
 import { TrustSection } from "@/components/trust-section";
 import { PricingSection } from "@/components/pricing-section";
 import { FaqSection } from "@/components/faq-section";
@@ -165,6 +166,7 @@ export default function Home() {
           </section>
         </div>
 
+        <AIChatSection />
         <TrustSection />
         <PricingSection />
         <FaqSection />

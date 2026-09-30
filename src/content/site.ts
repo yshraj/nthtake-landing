@@ -108,7 +108,7 @@ export const site = {
       },
       {
         role: "choice" as const,
-        text: "Client chose: A",
+        text: "A  Teal at 60% opacity — softer, same hue",
       },
       {
         role: "note" as const,

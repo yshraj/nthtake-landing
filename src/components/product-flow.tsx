@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
-  Film, Link2, Monitor, MessageSquare, Sparkles,
+  Film, Link2, Monitor, MessageSquare,
   CheckCircle2, Unlock, Play,
 } from "lucide-react";
 
@@ -31,17 +31,12 @@ const FLOW = [
     detail: "@ 1:05 — The outro feels too long. Maybe cut to 5s?",
   },
   {
-    id: 5, icon: Sparkles,
-    label: "EditTrack turns feedback into revision notes",
-    detail: "1 change · AI-assisted summary",
-  },
-  {
-    id: 6, icon: CheckCircle2,
+    id: 5, icon: CheckCircle2,
     label: "Client approves the final version",
     detail: "V2 · Approved by Sarah Chen",
   },
   {
-    id: 7, icon: Unlock,
+    id: 6, icon: Unlock,
     label: "Source files unlock instantly",
     detail: "Brand_Campaign_MASTER.mp4 · clean file · ready to download",
   },
@@ -168,34 +163,6 @@ function FeedbackPanel() {
   );
 }
 
-function AIPanel() {
-  return (
-    <div className="w-full max-w-sm space-y-2.5">
-      <div className="rounded-xl rounded-tl-sm bg-background border border-border/50 p-3 opacity-50">
-        <p className="text-xs text-muted-foreground">The outro feels too long. Maybe cut it to 5 seconds?</p>
-        <p className="text-xs text-muted-foreground/60 mt-1">Sarah Chen</p>
-      </div>
-      <motion.div
-        className="rounded-xl border border-primary/20 bg-primary/5 p-3 space-y-2"
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div className="flex items-center gap-1.5 text-xs font-medium text-primary">
-          <Sparkles className="w-3.5 h-3.5" />
-          EditTrack summarized 1 revision note
-        </div>
-        <ul className="space-y-1">
-          <li className="text-sm flex items-start gap-2">
-            <span className="text-primary shrink-0 mt-0.5">•</span>
-            <span>Shorten outro from 10s to 5s</span>
-          </li>
-        </ul>
-      </motion.div>
-    </div>
-  );
-}
-
 function ApprovePanel() {
   return (
     <div className="flex flex-col items-center gap-3 text-center py-4">
@@ -270,9 +237,8 @@ function StepVisual({ id }: { id: number }) {
     case 2: return <LinkPanel />;
     case 3: return <PreviewPanel />;
     case 4: return <FeedbackPanel />;
-    case 5: return <AIPanel />;
-    case 6: return <ApprovePanel />;
-    case 7: return <UnlockPanel />;
+    case 5: return <ApprovePanel />;
+    case 6: return <UnlockPanel />;
     default: return null;
   }
 }
