@@ -3,13 +3,13 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Navbar } from "@/components/navbar";
-import { ProductShowcase } from "@/components/product-showcase";
+import { ProductFlow } from "@/components/product-flow";
 import { TrustSection } from "@/components/trust-section";
 import { PricingSection } from "@/components/pricing-section";
 import { FaqSection } from "@/components/faq-section";
 import { CtaSection } from "@/components/cta-section";
-import { MockupPayLock, MockupSidebar, MockupVideoPlayer, MockupWorkspace } from "@/components/product-mockups";
 import { site } from "@/content/site";
+import { Upload, Eye, CheckCircle2, Unlock } from "lucide-react";
 
 function RotatingWord({ words }: { words: readonly string[] }) {
   const [index, setIndex] = useState(0);
@@ -113,35 +113,36 @@ export default function Home() {
                 </span>
               ))}
             </motion.div>
-          </section>
 
-          {/* Supporting Hero Visual */}
-          <motion.section
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-14 w-full max-w-5xl mx-auto relative perspective-1000"
-          >
-            <div className="relative z-10">
-              <MockupWorkspace title="Acme Corp Rebrand — Final Review">
-                <div className="flex flex-col lg:flex-row h-auto lg:h-[500px]">
-                  <MockupVideoPlayer />
-                  <MockupSidebar className="hidden sm:flex" />
-                </div>
-              </MockupWorkspace>
-            </div>
-
+            {/* 4-step mini flow */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute -bottom-8 -right-4 md:-bottom-12 md:-right-12 z-20 hidden md:block scale-90 lg:scale-100"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="w-full pt-2"
             >
-              <MockupPayLock />
+              <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-3">
+                {[
+                  { icon: Upload, label: "Upload your work" },
+                  { icon: Eye, label: "Client reviews" },
+                  { icon: CheckCircle2, label: "Client approves" },
+                  { icon: Unlock, label: "Files unlock" },
+                ].map(({ icon: Icon, label }, i, arr) => (
+                  <span key={label} className="flex items-center gap-2">
+                    <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                      <Icon className="w-3.5 h-3.5 text-primary/70 shrink-0" />
+                      {label}
+                    </span>
+                    {i < arr.length - 1 && (
+                      <svg className="w-3 h-3 text-border shrink-0" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
+                  </span>
+                ))}
+              </div>
             </motion.div>
-
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-primary/5 rounded-full blur-[100px] -z-10 pointer-events-none" />
-          </motion.section>
+          </section>
 
           {/* How it works */}
           <section id="features" className="mt-40">
@@ -158,8 +159,8 @@ export default function Home() {
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{site.how.kicker}</p>
             </motion.div>
 
-            <div id="workflow">
-              <ProductShowcase />
+            <div id="workflow" className="flex justify-center">
+              <ProductFlow />
             </div>
           </section>
         </div>
