@@ -2,69 +2,7 @@
 
 import { Check } from "lucide-react";
 import { motion } from "motion/react";
-
-const plans = [
-  {
-    name: "Free",
-    price: "$0",
-    period: "/ month",
-    target: "Try the full workflow with one project.",
-    features: [
-      "1 active project",
-      "Up to 10 GB storage",
-      "Up to 3 takes per project",
-      "Client preview with watermark",
-      "Feedback and comments",
-      "Payment unlock",
-      "0% commission on client payments",
-    ],
-    excluded: ["AI feedback summaries", "Custom watermark"],
-    cta: "Start free",
-    popular: false,
-  },
-  {
-    name: "Pro",
-    price: "$19",
-    period: "/ month",
-    target: "For freelancers using EditTrack regularly.",
-    features: [
-      "20 active projects",
-      "250 GB storage",
-      "Unlimited takes/revisions",
-      "Client preview with watermark",
-      "Feedback and comments",
-      "Payment unlock",
-      "100 AI feedback summaries / month",
-      "Custom watermark",
-      "0% commission on client payments",
-    ],
-    excluded: [],
-    cta: "Get Pro",
-    popular: true,
-  },
-  {
-    name: "Agency",
-    price: "$49",
-    period: "/ month",
-    target: "For small creative teams.",
-    features: [
-      "Unlimited projects",
-      "1 TB storage",
-      "Unlimited takes/revisions",
-      "Client preview with watermark",
-      "Feedback and comments",
-      "Payment unlock",
-      "500 AI feedback summaries / month",
-      "3 team seats",
-      "Custom watermark",
-      "Priority support",
-      "0% commission on client payments",
-    ],
-    excluded: [],
-    cta: "Start with Agency",
-    popular: false,
-  },
-];
+import { site } from "@/content/site";
 
 export function PricingSection() {
   return (
@@ -79,21 +17,19 @@ export function PricingSection() {
           className="text-center space-y-4 mb-6"
         >
           <p className="text-sm font-medium text-primary uppercase tracking-widest">
-            Simple pricing
+            {site.pricing.kicker}
           </p>
           <h2 className="text-4xl md:text-5xl font-heading font-medium tracking-tight">
-            You keep 100% of what your client pays.
+            {site.pricing.titleBefore}<span className="font-serif italic text-primary">{site.pricing.titleAccent}</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            EditTrack charges a flat monthly fee. We take 0% of your client
-            payments — ever. No revenue share, no per-delivery cut, no
-            surprises.
+            {site.pricing.body}
           </p>
         </motion.div>
 
         {/* Plans */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-14">
-          {plans.map((plan, i) => (
+          {site.pricing.plans.map((plan, i) => (
             <motion.div
               key={plan.name}
               initial={{ opacity: 0, y: 30 }}
@@ -108,7 +44,7 @@ export function PricingSection() {
             >
               {plan.popular && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                  <span className="bg-primary text-background text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider">
+                  <span className="bg-primary text-primary-foreground text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider">
                     Most popular
                   </span>
                 </div>
@@ -213,7 +149,6 @@ export function PricingSection() {
           className="text-center text-sm text-muted-foreground mt-10"
         >
           All plans include payment unlock, client preview, and version history.
-          No credit card required for Free. Cancel anytime.
         </motion.p>
       </div>
     </section>
