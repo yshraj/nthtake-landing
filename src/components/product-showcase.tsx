@@ -18,14 +18,14 @@ export function ProductShowcase() {
         >
            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-sm font-medium border border-border">
              <Link2 className="w-4 h-4" />
-             Frictionless Access
+             No account needed
            </div>
            <h3 className="text-4xl md:text-5xl font-heading font-medium tracking-tight">
              Share securely. <br />
              <span className="text-muted-foreground">No client signup required.</span>
            </h3>
            <p className="text-lg text-muted-foreground">
-             Generate a unique, expiring magic link. Your client clicks it and goes straight to the review room. Their privacy is protected, and they never have to remember another password.
+             Generate a unique, expiring magic link. Your client clicks it and goes straight to the review room — no account, no password, no onboarding.
            </p>
         </motion.div>
         <motion.div 

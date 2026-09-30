@@ -38,10 +38,10 @@ export function TrustSection() {
           className="text-center max-w-2xl mx-auto mb-16 space-y-4"
         >
           <h2 className="text-3xl md:text-5xl font-heading font-medium tracking-tight">
-            Your work, protected.
+            Your client relationship,<br className="hidden md:block" /> your business.
           </h2>
           <p className="text-lg text-muted-foreground">
-            EditTrack is a tool, not a marketplace. We give you the infrastructure to run your freelance business securely, without getting in the middle of your client relationships.
+            EditTrack is a delivery tool for freelancers — not a marketplace. Your work stays private, your client relationship stays yours, and we never take a cut.
           </p>
         </motion.div>
 

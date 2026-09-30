@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ArrowRight, Loader2, CheckCircle2 } from "lucide-react";
 import { motion } from "motion/react";
 import { joinWaitlist } from "@/actions/waitlist";
+import { site } from "@/content/site";
 
 export function CtaSection() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -12,7 +13,7 @@ export function CtaSection() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    
+
     setStatus("loading");
     setMessage("");
 
@@ -25,7 +26,7 @@ export function CtaSection() {
         setStatus("success");
         setMessage(result?.message || "Joined successfully!");
       }
-    } catch (err) {
+    } catch {
       setStatus("error");
       setMessage("Something went wrong. Please try again.");
     }
@@ -33,11 +34,10 @@ export function CtaSection() {
 
   return (
     <section id="cta" className="py-24 md:py-32 relative overflow-hidden bg-background">
-      {/* Background gradients */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
-      
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+
       <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -45,18 +45,20 @@ export function CtaSection() {
           className="bg-secondary/40 border border-border/50 rounded-[3rem] p-8 md:p-16 text-center space-y-8 backdrop-blur-sm shadow-xl"
         >
           <div className="space-y-4">
+            <p className="text-sm font-medium text-primary uppercase tracking-widest">
+              {site.closer.kicker}
+            </p>
             <h2 className="text-4xl md:text-6xl font-heading font-medium tracking-tight text-balance">
-              Stop chasing invoices. <br />
-              <span className="text-muted-foreground">Start protecting your work.</span>
+              {site.closer.title}
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-              Join the waitlist to secure early access. We&apos;re rolling out EditTrack to a select group of professional creators.
+              {site.closer.body}
             </p>
           </div>
-          
+
           <div className="max-w-md mx-auto mt-8">
             {status === "success" ? (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 rounded-xl p-4 flex items-center justify-center gap-3"
@@ -66,15 +68,15 @@ export function CtaSection() {
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   name="email"
-                  placeholder="Enter your email" 
+                  placeholder={site.closer.emailPlaceholder}
                   disabled={status === "loading"}
                   className="flex-1 h-14 rounded-xl px-4 border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-base disabled:opacity-50"
                   required
                 />
-                <motion.button 
+                <motion.button
                   whileHover={{ scale: status === "loading" ? 1 : 1.02 }}
                   whileTap={{ scale: status === "loading" ? 1 : 0.98 }}
                   type="submit"
@@ -84,25 +86,25 @@ export function CtaSection() {
                   {status === "loading" ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      Joining...
+                      {site.closer.sending}…
                     </>
                   ) : (
                     <>
-                      Join Waitlist
+                      {site.closer.cta}
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </>
                   )}
                 </motion.button>
               </form>
             )}
-            
+
             {status === "error" && (
               <p className="text-sm text-destructive mt-3">{message}</p>
             )}
-            
+
             {status !== "success" && (
               <p className="text-xs text-muted-foreground pt-4">
-                No spam. We will only contact you when your account is ready.
+                No spam. We only reach out when your account is ready.
               </p>
             )}
           </div>
