@@ -1,5 +1,5 @@
 export const site = {
-  name: "Nthtake",
+  name: "EditTrack",
   tagline: "Send the client the work. Get paid. Then give them the clean files.",
   nav: [
     { href: "#how", label: "How" },
@@ -15,7 +15,7 @@ export const site = {
     body: "Send a watermarked preview. Your client reviews it, approves it, pays, and the clean files unlock.",
     waitlistLabel: "Work email",
     waitlistPlaceholder: "you@studio.com",
-    waitlistCta: "Get early access to Nthtake",
+    waitlistCta: "Get early access to EditTrack",
     waitlistSending: "Sending",
     waitlistSuccess: "Spot reserved for",
     waitlistError: "Enter a work email.",
@@ -33,7 +33,7 @@ export const site = {
     kicker: "The payment problem",
     titleBefore: "Chasing your own ",
     titleAccent: "money.",
-    body: "You send the final file. Client says: I'll pay tomorrow. Tomorrow becomes next week. Now you're chasing your own money. Nthtake keeps the final files locked until you're paid.",
+    body: "You send the final file. Client says: I'll pay tomorrow. Tomorrow becomes next week. Now you're chasing your own money. EditTrack keeps the final files locked until you're paid.",
     items: [
       { value: "0", label: "Awkward follow-ups" },
       { value: "0%", label: "Commission taken" },
@@ -72,7 +72,7 @@ export const site = {
     kicker: "AI assistance",
     titleBefore: "Turn client comments into a ",
     titleAccent: "to-do list",
-    body: "Client gives feedback. Nthtake helps turn that feedback into a clear list of changes for the next version.",
+    body: "Client gives feedback. EditTrack helps turn that feedback into a clear list of changes for the next version.",
   },
   review: {
     kicker: "The feedback problem",
@@ -88,7 +88,7 @@ export const site = {
     holdLabel: "Hold to unlock",
     lockedLabel: "PREVIEW → UNPAID",
     unlockedLabel: "MASTER → PAID",
-    url: "[ NTHTAKE / PREVIEW ]",
+    url: "[ EDITTRACK / PREVIEW ]",
   },
   takes: {
     kicker: "Versions",
@@ -128,13 +128,13 @@ export const site = {
         id: "q4",
         question: "How does the AI work?",
         answer:
-          "If the client leaves messy comments, Nthtake can turn those comments into a simple bulleted list of changes for you to make.",
+          "If the client leaves messy comments, EditTrack can turn those comments into a simple bulleted list of changes for you to make.",
       },
       {
         id: "q5",
         question: "What does it cost?",
         answer:
-          "Nthtake takes 0% commission on your client payments. We charge a simple, flat monthly subscription to use the platform.",
+          "EditTrack takes 0% commission on your client payments. We charge a minor monthly fee to use the platform — no percentage of what you earn.",
       },
     ],
   },
@@ -142,13 +142,13 @@ export const site = {
     kicker: "Simple pricing",
     titleBefore: "You keep 100% of what your client ",
     titleAccent: "pays.",
-    body: "Nthtake charges a simple monthly fee. No percentage taken from your client payments.",
+    body: "EditTrack charges a minor monthly fee. 0% taken from your client payments — ever.",
     plans: [
       {
         name: "Free",
         price: "$0",
         period: "/ month",
-        target: "For freelancers who want to try Nthtake.",
+        target: "For freelancers who want to try EditTrack.",
         features: [
           "1 active project",
           "Up to 10 GB storage",
@@ -156,7 +156,7 @@ export const site = {
           "Basic client preview",
           "Feedback and comments",
           "Payment unlock",
-          "Nthtake watermark",
+          "EditTrack watermark",
           "0% commission",
           "AI summaries not included",
         ],
@@ -167,7 +167,7 @@ export const site = {
         name: "Pro",
         price: "$19",
         period: "/ month",
-        target: "For freelancers using Nthtake regularly.",
+        target: "For freelancers using EditTrack regularly.",
         features: [
           "20 active projects",
           "250 GB storage",
@@ -208,11 +208,11 @@ export const site = {
       {
         id: "p1",
         question: "Do you take a percentage of my client payments?",
-        answer: "No. Nthtake takes 0% of your client payment. You pay a simple monthly fee.",
+        answer: "No. EditTrack takes 0% of your client payment. You pay a minor monthly fee.",
       },
       {
         id: "p2",
-        question: "Can I use Nthtake for free?",
+        question: "Can I use EditTrack for free?",
         answer: "Yes. The Free plan lets you try the core workflow with one active project.",
       },
       {
@@ -234,8 +234,8 @@ export const site = {
   },
   closer: {
     kicker: "Stop chasing clients for payment",
-    title: "Get early access to Nthtake.",
-    body: "Stop chasing your own money. 0% commission on client payments.",
+    title: "Get early access to EditTrack.",
+    body: "Stop chasing your own money. 0% commission. Work stays private — secret link, never indexed.",
     emailLabel: "Work email",
     emailPlaceholder: "you@studio.com",
     craftLabel: "I am a",
@@ -245,7 +245,7 @@ export const site = {
       { value: "agency", label: "Creative Agency" },
       { value: "other", label: "Other" },
     ],
-    cta: "Get early access to Nthtake",
+    cta: "Get early access to EditTrack",
     sending: "Requesting",
     success: "Spot reserved for",
   },
@@ -253,7 +253,7 @@ export const site = {
     kicker: "Who it's for",
     titleBefore: "Built for freelancers who ",
     titleAccent: "deliver digital work.",
-    body: "If you send large files to clients and need to get paid for them, Nthtake is for you.",
+    body: "If you send large files to clients and need to get paid for them, EditTrack is for you.",
     items: [
       {
         id: 1,
@@ -300,7 +300,7 @@ export const site = {
     ],
   },
   footer: {
-    blurb: "Send the client the work. Get paid. Then give them the clean files.",
+    blurb: "Review, revise, get paid. Work stays private. No client account needed.",
     status: "Waitlist open",
     product: [
       { href: "#how", label: "How it works" },
