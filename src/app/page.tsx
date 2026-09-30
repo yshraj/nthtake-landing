@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Navbar } from "@/components/navbar";
 import { ProductFlow } from "@/components/product-flow";
 import { AIChatSection } from "@/components/ai-chat-section";
+import { VoicesSection } from "@/components/voices-section";
 import { TrustSection } from "@/components/trust-section";
 import { PricingSection } from "@/components/pricing-section";
 import { FaqSection } from "@/components/faq-section";
@@ -115,6 +116,27 @@ export default function Home() {
               ))}
             </motion.div>
 
+            {/* Tools marquee */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="w-full overflow-hidden relative"
+              style={{ maskImage: "linear-gradient(to right, transparent, black 12%, black 88%, transparent)" }}
+            >
+              <motion.div
+                animate={{ x: "-50%" }}
+                transition={{ duration: 18, repeat: Infinity, repeatType: "loop", ease: "linear" }}
+                className="flex items-center gap-10 w-max"
+              >
+                {[...site.tools, ...site.tools].map((tool, i) => (
+                  <span key={i} className="text-xs text-muted-foreground/40 font-mono whitespace-nowrap select-none tracking-widest uppercase">
+                    {tool}
+                  </span>
+                ))}
+              </motion.div>
+            </motion.div>
+
             {/* 4-step mini flow */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -167,6 +189,7 @@ export default function Home() {
         </div>
 
         <AIChatSection />
+        <VoicesSection />
         <TrustSection />
         <PricingSection />
         <FaqSection />
