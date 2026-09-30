@@ -2,9 +2,28 @@
 
 ## What
 
-Pre-launch waitlist landing page for EditTrack — a client communication and project feedback tool for creative freelancers (video editors, motion designers, graphic designers).
+Pre-launch waitlist landing page for EditTrack — a client review, AI feedback, and payment delivery tool for creative freelancers (video editors, motion designers, graphic designers).
 
-The product connects freelancers and their clients through AI-mediated feedback: clients submit vague notes, AI clarifies and structures them, freelancers receive organized revision tasks. Core loop: add project → client reviews → AI facilitates clear feedback → freelancer acts.
+### Core product loop
+
+1. Freelancer uploads deliverable → watermarked preview sent via a single link
+2. Client reviews the preview (no account required)
+3. Client leaves feedback — often vague or contradictory
+4. **EditTrack AI intervenes:** checks existing project context (brief, prior decisions, uploaded references, previous comment rounds) → challenges or clarifies vague feedback → presents concrete options → client picks one → output is a clear, decided revision note for the designer
+5. Freelancer acts on an unambiguous revision note — not a vague complaint
+6. Client approves final version → pays → clean master files unlock instantly
+
+### AI value proposition (distinct from generic "AI summarizes feedback")
+
+The critical insight: client feedback is almost always vague. The AI's job is not to clean up grammar or organize bullet points. It is to catch contradictory or ambiguous feedback *before it reaches the designer's to-do list*, using what was already agreed in the project.
+
+Example: Client says "this color doesn't look right." AI checks the approved brand palette PDF attached to the project, references the V1 approval decision, and responds: "The teal was approved in your V1 review per the brand guide (page 3). Is the palette itself the issue, or how it's applied here?" Then presents 3 concrete options. Client picks one. Revision note is specific and decided.
+
+**Two capability tiers (see saas-info/ai-feature-brief.md):**
+- Tier 1 (hackathon MVP, Groq whisper + llama): voice transcription → summarization → numbered revision packet. Does not check project context.
+- Tier 2 (product vision): context lookup from project documents → contextual challenge → option presentation → guided choice → revision note. This is the core landing page story.
+
+The landing page should describe Tier 2 as the product, because that is what EditTrack is — not a summarizer. The Tier 1 hackathon infrastructure is an implementation detail, not the value proposition.
 
 ## Why
 

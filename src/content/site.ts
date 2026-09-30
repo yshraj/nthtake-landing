@@ -69,10 +69,52 @@ export const site = {
     ],
   },
   studio: {
-    kicker: "AI assistance",
-    titleBefore: "Turn client comments into a ",
-    titleAccent: "to-do list",
-    body: "Client gives feedback. EditTrack helps turn that feedback into a clear list of changes for the next version.",
+    kicker: "AI-assisted feedback",
+    titleBefore: "Feedback that actually ",
+    titleAccent: "means something.",
+    body: "When a client says \"the color feels off,\" EditTrack checks what was already agreed — and helps them say what they actually mean. The result is a clear, decided revision note, not another guessing game.",
+    // Full feature description: saas-info/ai-feature-brief.md
+    // Tier 1 (live: hackathon MVP): voice transcription → summary via Groq whisper + llama
+    // Tier 2 (vision): project context lookup → contextual challenge → option presentation → revision note
+  },
+  ai: {
+    kicker: "Context-aware AI",
+    titleBefore: "Your project decisions, ",
+    titleAccent: "remembered.",
+    body: "EditTrack's AI knows what you and your client already agreed on — the brief, the palette decisions, the notes from round one. When new feedback contradicts something that was already settled, it asks the client to clarify before it reaches your to-do list.",
+    // Conversation flow for landing page animation (see saas-info/ai-feature-brief.md § Example)
+    flow: [
+      {
+        role: "client" as const,
+        text: "the background color isn't looking good here",
+      },
+      {
+        role: "ai" as const,
+        text: "The teal was approved in your V1 review based on the brand guide (page 3). Is the palette the issue, or how it's applied in this scene?",
+        context: "Brand_Palette_Final.pdf · page 3 · V1 approved",
+      },
+      {
+        role: "client" as const,
+        text: "palette is fine, it just feels too strong",
+      },
+      {
+        role: "ai" as const,
+        text: "Got it. Here are three options based on your approved palette:",
+        options: [
+          "A  Teal at 60% opacity — softer, same hue",
+          "B  Secondary navy — stronger contrast",
+          "C  Light neutral background — color in type only",
+        ],
+      },
+      {
+        role: "choice" as const,
+        text: "Client chose: A",
+      },
+      {
+        role: "note" as const,
+        text: "Revision note #2: Reduce background teal to 60% opacity in scenes 1–3. Palette approved — issue was intensity, not hue.",
+      },
+    ],
   },
   review: {
     kicker: "The feedback problem",
@@ -129,7 +171,7 @@ export const site = {
         id: "q4",
         question: "How does the AI work?",
         answer:
-          "If the client leaves messy comments, EditTrack can turn those comments into a simple bulleted list of changes for you to make.",
+          "When a client leaves vague feedback, the AI checks what was already agreed in the project — the brief, previous decisions, reference documents — and asks the client one focused clarifying question. Then it presents a few concrete options. The client picks one, and that becomes a clear revision note for you. No more guessing what \"make it pop more\" means.",
       },
       {
         id: "q5",
