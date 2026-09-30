@@ -97,7 +97,7 @@ export function CtaSection() {
             )}
             
             {status === "error" && (
-              <p className="text-sm text-red-500 mt-3">{message}</p>
+              <p className="text-sm text-destructive mt-3">{message}</p>
             )}
             
             {status !== "success" && (

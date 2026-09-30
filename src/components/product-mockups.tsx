@@ -9,7 +9,7 @@ export function MockupWorkspace({ children, title = "Website Redesign — Client
     <div className={`w-full rounded-[1.5rem] md:rounded-[2rem] bg-secondary/30 border border-border/50 p-2 md:p-4 overflow-hidden shadow-2xl shadow-primary/5 ${className}`}>
       <div className="w-full bg-background rounded-xl border border-border shadow-sm overflow-hidden flex flex-col h-full">
         {/* Workspace Header */}
-        <div className="h-12 border-b border-border flex items-center px-4 justify-between bg-zinc-50/50 dark:bg-zinc-900/50">
+        <div className="h-12 border-b border-border flex items-center px-4 justify-between bg-muted/40">
           <div className="flex items-center gap-2">
             <div className="flex gap-1.5 mr-4">
               <div className="w-3 h-3 rounded-full bg-border"></div>
@@ -46,8 +46,8 @@ export function MockupVideoPlayer({
   className?: string;
 }) {
   return (
-    <div className={`flex-1 bg-zinc-50 dark:bg-zinc-950 relative flex flex-col min-h-[300px] h-full ${className}`}>
-      <div className="flex-1 relative m-2 md:m-4 rounded-lg md:rounded-xl bg-zinc-200 dark:bg-zinc-900 overflow-hidden group border border-border/50 shadow-sm">
+    <div className={`flex-1 bg-muted/30 relative flex flex-col min-h-[300px] h-full ${className}`}>
+      <div className="flex-1 relative m-2 md:m-4 rounded-lg md:rounded-xl bg-muted overflow-hidden group border border-border/50 shadow-sm">
         {/* Fake Media */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" className="w-full h-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105" alt="Video frame mockup" />
@@ -186,7 +186,7 @@ export function MockupPayLock({ className = "" }: { className?: string }) {
 
   return (
     <div className={`w-full max-w-sm bg-background rounded-2xl shadow-2xl border border-border/50 overflow-hidden flex flex-col relative z-20 ${className}`}>
-      <div className="p-5 text-center space-y-2 bg-zinc-50 dark:bg-zinc-900/50 border-b border-border/50">
+      <div className="p-5 text-center space-y-2 bg-muted/40 border-b border-border/50">
           <div className="w-12 h-12 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center mx-auto mb-3">
             <CheckCircle2 className="w-6 h-6" />
           </div>
