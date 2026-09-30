@@ -6,7 +6,7 @@ Four-phase revamp of the EditTrack pre-launch landing page. Phase 1 recovers los
 
 ## Phases
 
-- [ ] **Phase 1: Content Recovery + Light Theme Completion** - Restore lost product copy from git history; fix all remaining dark-hardcoded colors
+- [x] **Phase 1: Content Recovery + Light Theme Completion** - Restore lost product copy from git history; fix all remaining dark-hardcoded colors
 - [ ] **Phase 2: Playwright Review + Positioning Pass** - Visual audit at 1440px and 390px; update copy to clearly target creative freelancers
 - [ ] **Phase 3: Interactive Mockups** - Make product UI mockups feel real and interactive
 - [ ] **Phase 4: Build + QA** - Clean npm build, TypeScript, and lint
@@ -29,7 +29,7 @@ Plans:
 - [x] 01-01-PLAN.md — Commit Path B baseline; remove Nthtake apple-icon; light-palette OG image + themeColor (wave 1)
 - [x] 01-02-PLAN.md — Wire PricingSection to site.pricing (git-history pricing); add site.takes.body; drop unsourced billing claims (wave 2)
 - [x] 01-03-PLAN.md — Light-theme sweep: zinc/dark: -> muted tokens, missing @theme mappings, text-destructive (wave 2)
-- [ ] 01-04-PLAN.md — 01-CONTENT-AUDIT.md provenance record + phase-end gate (wave 3)
+- [x] 01-04-PLAN.md — 01-CONTENT-AUDIT.md provenance record + phase-end gate (wave 3)
 
 ### Phase 2: Playwright Review + Positioning Pass
 **Goal**: Visual audit of full page across desktop and mobile; update hero and feature copy to clearly position EditTrack for video editors and creative freelancers
